@@ -519,3 +519,4 @@ i.src { font: 400 11px/1 var(--mono); color: var(--ink-3); font-style: normal; }
 @keyframes kb { from { transform: scale(1); } to { transform: scale(1.06) translate(-1%, 0.5%); } }
 
 @media (max-width: 768px) { .wordmark { font-size: 15px; gap: 7px; } .wordmark .bulb { width: 10px; height: 10px; } }
+.card .first { color: var(--ink) !important; font: 500 13px/1.5 var(--mono) !important; }

@@ -125,7 +125,11 @@ export async function initChainLinks() {
   const d = await loadDeployments();
   document.querySelectorAll('[data-href="blockscout"]').forEach((a) => { if (d.address) { a.href = `${d.explorer}/address/${d.address}`; a.hidden = false; } });
   document.querySelectorAll('[data-contract-line]').forEach((el) => {
-    if (d.address) el.innerHTML = `TipJar <a href="${d.explorer}/address/${d.address}" rel="noopener" target="_blank">${esc(d.address)}</a>`;
+    if (d.address) el.innerHTML = `${esc(d.contract)} <a href="${d.explorer}/address/${d.address}" rel="noopener" target="_blank">${esc(d.address)}</a>${d.verified.blockscout ? ' · verified on Blockscout' : ''}`;
+    else el.hidden = true;
+  });
+  document.querySelectorAll('[data-verify-line]').forEach((el) => {
+    if (d.address && d.verified.sourcify) el.innerHTML = `Source verified on Sourcify (exact match): <a href="https://sourcify.dev/server/v2/contract/${d.chainId}/${d.address}" rel="noopener" target="_blank">sourcify.dev</a>.`;
     else el.hidden = true;
   });
   return d;

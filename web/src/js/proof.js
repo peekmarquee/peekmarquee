@@ -27,7 +27,7 @@ async function rpc(d, method, params) {
     ['Chain', `${esc(d.name)} · ${d.chainId}`],
     ['Deploy tx', d.deployTx ? ex('tx', d.deployTx, short(d.deployTx, 8)) : '–'],
     ['Deploy block', d.deployBlock ? ex('block', d.deployBlock, num(d.deployBlock)) : '–'],
-    ['Source', d.address ? `<a href="https://sourcify.dev/server/v2/contract/${d.chainId}/${esc(d.address)}" rel="noopener" target="_blank">Sourcify</a> · ${ex('address', d.address, 'Blockscout')}` : '–'],
+    ['Source', d.address ? `${d.verified.sourcify ? `<a href="https://sourcify.dev/server/v2/contract/${d.chainId}/${esc(d.address)}" rel="noopener" target="_blank">Sourcify (exact match)</a>` : 'not verified yet'} · ${ex('address', d.address, d.verified.blockscout ? 'Blockscout (verified)' : 'Blockscout explorer')}` : '–'],
     ['MIN_TIP', '<span data-min>…</span> <i class="src">live eth_call</i>'],
     ...d.retired.map((r) => ['Retired', `v1 retired (ETH-only) · ${ex('address', r.address, short(r.address, 6))} · holds <span data-rbal="${esc(r.address)}">…</span> ETH`]),
   ];

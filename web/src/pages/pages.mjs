@@ -6,7 +6,8 @@ const NPM = 'https://www.npmjs.com/package/peekmarquee';
 const icon = {
   copy: '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="5" y="5" width="8.5" height="8.5" rx="1.5"/><path d="M3 10.5V3.8C3 3.3 3.3 3 3.8 3h6.7"/></svg>',
 };
-export const copyBtn = (value, label = 'Copy') => `<button class="copy" type="button" data-copy="${value}" aria-label="${label}">${icon.copy}<span>Copy</span></button>`;
+const escA = (v) => String(v).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+export const copyBtn = (value, label = 'Copy') => `<button class="copy" type="button" data-copy="${escA(value)}" aria-label="${escA(label)}">${icon.copy}<span>Copy</span></button>`;
 
 const nav = (active) => `
 <header class="nav" role="banner">
@@ -25,7 +26,7 @@ const footer = () => `
   <div class="foot-cols">
     <div><h3>Product</h3><a href="/live/">Live</a><a href="/docs/">Docs</a><a href="/token/">Token</a><a href="/proof/">Proof</a></div>
     <div><h3>Use</h3><a href="${NPM}" rel="noopener" target="_blank">npm</a><a href="/docs/#dry-run"><code>--dry-run</code></a><a href="/docs/#delete">Delete a stream</a><a href="/docs/#report">Report</a></div>
-    <div><h3>Chain</h3><a href="/proof/" data-href="blockscout" hidden rel="noopener" target="_blank">Contract on Blockscout</a><a href="/token/#ca">CA</a><a href="/token/" data-href="buy" hidden rel="noopener" target="_blank">Buy on Pons</a></div>
+    <div><h3>Chain</h3><a href="/proof/" data-href="blockscout" hidden rel="noopener" target="_blank">Contract on explorer</a><a href="/token/#ca">CA</a><a href="/token/" data-href="buy" hidden rel="noopener" target="_blank">Buy on Pons</a></div>
     <div><h3>Social</h3><a href="${X}" rel="noopener" target="_blank">X</a><a href="/llms.txt">llms.txt</a></div>
   </div>
   <p class="foot-agents">Built for agents too: <a href="/llms.txt"><code>llms.txt</code></a>, <a href="/api"><code>/api</code></a>.</p>
@@ -81,7 +82,7 @@ ${footer()}
 }
 
 const DESC = 'Your coding agent, live. Anyone can watch it build. One command: npx peekmarquee. $MARQ · PEEKMARQUEE.';
-const cmd = (c, id = '') => `<div class="cmd"${id ? ` id="${id}"` : ''}><span class="cmd-prompt" aria-hidden="true">$</span><code>${c}</code>${copyBtn(c, `Copy ${c}`)}</div>`;
+const cmd = (c, id = '') => `<div class="cmd"${id ? ` id="${id}"` : ''}><span class="cmd-prompt" aria-hidden="true">$</span><code>${escA(c)}</code>${copyBtn(c, `Copy ${c}`)}</div>`;
 
 // ---- token block (hero + /token) ----
 export const tokenBlock = (where) => `
@@ -139,6 +140,7 @@ const landing = `
       <span class="num">01</span><h3>Stream</h3>
       <p>One command. <code>npx peekmarquee</code> in the folder where Claude Code is running prints a public link in seconds.</p>
       <ol class="mini-tl" data-mini aria-label="Latest events"></ol>
+      <p class="first" data-first hidden>no public streams yet — be the first: <code>npx peekmarquee</code></p>
       <p class="foot-note">Read-only. Viewers can't type into your session; there is no channel from the page back to your terminal.</p>
     </div>
   </article>
@@ -148,6 +150,7 @@ const landing = `
       <span class="num">02</span><h3>Redact</h3>
       <p>Secrets are hidden on your machine, before anything leaves it. The relay runs the same filter again.</p>
       <canvas class="card-sign" data-red-sign width="384" height="56" aria-hidden="true"></canvas>
+      <p class="first" data-first hidden>no public streams yet — be the first: <code>npx peekmarquee</code></p>
       <p class="big-num" data-secrets hidden><b>0</b> <span>secrets hidden</span></p>
       <div class="chips" data-chips>
         <span class="chip" data-cls="api_key">api_key</span><span class="chip" data-cls="token">token</span><span class="chip" data-cls="private_key">private_key</span><span class="chip" data-cls="seed_phrase">seed_phrase</span><span class="chip" data-cls="credential_url">credential_url</span><span class="chip" data-cls="jwt">jwt</span><span class="chip" data-cls="high-entropy">high-entropy</span><span class="chip" data-cls="env_value">env_value</span>
@@ -273,7 +276,8 @@ ${cmd('npx peekmarquee')}
 <p>Unlisted streams: <code>--private</code> keeps the link out of the directory and the stats.</p>
 <p>A secret slipped through? Run <code>npx peekmarquee delete &lt;id&gt;</code> right away. Viewers can report it as <code>secret_leaked</code>, which unlists the stream and turns its replay off until we check.</p></section>
 <section id="tips"><h2>Tips &amp; contract</h2><p>Tips go straight to the streamer's wallet through a tiny contract that holds nothing.</p>
-<p>Not audited. The contract is 1 function and holds no ETH; read it on Blockscout.</p>
+<p>Tip in ETH or USDG now; $MARQ after launch. ETH is one transaction (<code>tip</code>); a token tip is two: approve the exact amount, then <code>tipToken</code>.</p>
+<p>Not audited. The contract has two functions, <code>tip</code> (ETH) and <code>tipToken</code> (tokens), and holds no ETH and no tokens. <span data-verify-line>Source verified on Sourcify (exact match).</span></p>
 <p data-contract-line class="mono small"></p>
 <p>Totals are gross and unfiltered: anyone can tip anyone, including themselves. A recipient whose wallet rejects ETH makes the tip transaction fail; no funds get stuck. <a href="/proof/">Proof</a></p></section>
 <section id="api"><h2>API</h2><p>Built for agents too: <a href="/llms.txt"><code>llms.txt</code></a>, <a href="/api"><code>/api</code></a>.</p>
@@ -306,7 +310,7 @@ const token = `
   <dl>
     <div><dt>Holder perks</dt><dd data-perks>Holder perks switch on after launch; until then everything is the same for everyone.</dd></div>
     <div><dt>Fees</dt><dd>No promise of returns. Creator fee goes to the team wallet and pays for the relay and domain. <span data-tax hidden>Tax 2%.</span></dd></div>
-    <div><dt>Contract</dt><dd>Not audited. The contract is 1 function and holds no ETH; read it on Blockscout. <span data-contract-line class="mono small"></span></dd></div>
+    <div><dt>Contract</dt><dd>Not audited. The contract has two functions, <code>tip</code> (ETH) and <code>tipToken</code> (tokens), and holds no ETH and no tokens. <span data-verify-line>Source verified on Sourcify (exact match).</span> <span data-contract-line class="mono small"></span></dd></div>
     <div><dt>Team wallets</dt><dd data-team class="mono small"></dd></div>
   </dl>
 </section>`;
@@ -314,11 +318,11 @@ const token = `
 // ---- /proof ----
 const proof = `
 <section class="page-head"><h1>Proof</h1><p class="lede">Tips go straight to the streamer's wallet through a tiny contract that holds nothing.</p>
-<p class="muted">Not audited. The contract is 1 function and holds no ETH; read it on Blockscout.</p></section>
+<p class="muted">Not audited. The contract has two functions, <code>tip</code> (ETH) and <code>tipToken</code> (tokens), and holds no ETH and no tokens. <span data-verify-line>Source verified on Sourcify (exact match).</span></p></section>
 <section class="page-sec proof-grid">
   <article class="pcard" data-reveal>
     <h2>Contract</h2>
-    <dl class="kv" data-contract-kv><div><dt>TipJar</dt><dd class="mono">–</dd></div></dl>
+    <dl class="kv" data-contract-kv><div><dt>TipJarV2</dt><dd class="mono">–</dd></div></dl>
     <p class="big-stat"><b data-balance>…</b><span>ETH held by the contract <i class="src" data-balance-src></i></span></p>
   </article>
   <article class="pcard" data-reveal>
@@ -364,7 +368,7 @@ export const pages = [
   { id: 'viewer', out: 's/index.html', path: '/s/', title: 'Live session · PEEKMARQUEE', desc: 'A coding agent session, live and read-only. PEEKMARQUEE.', body: viewer, js: 'viewer' },
   { id: 'docs', out: 'docs/index.html', path: '/docs', title: 'Docs · PEEKMARQUEE', desc: 'Install, flags, redaction, limits, replay, tips and API for PEEKMARQUEE.', body: docs, js: 'docs' },
   { id: 'token', out: 'token/index.html', path: '/token', title: '$MARQ · PEEKMARQUEE token', desc: 'PEEKMARQUEE is free. Nothing here needs the token. $MARQ · Fri 6 Nov 2026 15:00 UTC.', body: token, js: 'token' },
-  { id: 'proof', out: 'proof/index.html', path: '/proof', title: 'Proof · PEEKMARQUEE', desc: 'TipJar contract, on-chain tip totals and the last 50 tips.', body: proof, js: 'proof' },
+  { id: 'proof', out: 'proof/index.html', path: '/proof', title: 'Proof · PEEKMARQUEE', desc: 'TipJarV2 contract, on-chain tip totals and the last 50 tips.', body: proof, js: 'proof' },
   { id: 'expired', out: 'expired.html', path: '/expired', title: 'Expired · PEEKMARQUEE', desc: DESC, body: plain('This stream has expired.', startOwn), js: 'plain' },
   { id: 'notfound', out: '404.html', path: '/404', title: 'Not found · PEEKMARQUEE', desc: DESC, body: plain('Not found.', startOwn), js: 'plain' },
 ];

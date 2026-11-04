@@ -33,7 +33,7 @@ function miniPush(ev) {
 let lastRed = null;
 const redSignEl = document.querySelector('[data-red-sign]');
 const redSign = redSignEl ? makeSign(redSignEl, { rows: 9, pitch: 6, speed: 60 }) : null;
-redSign?.set('[REDACTED]', 'red');
+redSign?.set('STANDBY', 'dim', 'standby');
 function chipsOn(ev) {
   const cls = [...redClasses(ev.data?.text), ...redClasses(ev.data?.summary), ...redClasses(ev.data?.snippet)];
   if (ev.data?.hidden) cls.push(ev.data.hidden === 'env_dump' ? 'env_value' : null);
@@ -68,7 +68,7 @@ async function embed() {
   if (!pick) {
     const down = live.status === 0;
     box.innerHTML = `<div class="sv-empty nostream">${down ? "<p>Can't reach the relay right now.</p>" : '<p>No public stream right now. Start one: <code>npx peekmarquee</code></p>'}${cmdHTML}</div>`;
-    mini.innerHTML = '<li class="tc-bash"><span class="tool">$</span><span>npx peekmarquee</span></li>';
+    mini.innerHTML = '';
     sign?.set('STANDBY', 'dim', 'standby');
     setNow('off', 'STANDBY', down ? "Can't reach the relay right now." : 'No public stream right now.');
     now.href = '#go-live';
@@ -103,8 +103,9 @@ loadToken().then((t) => { if (t.launched) { const p = document.querySelector('[d
     row.querySelector('[data-st="hoursStreamed"]').textContent = num(Math.round(st.hoursStreamed * 10) / 10);
     row.querySelector('[data-st="secretsHidden"]').textContent = num(st.secretsHidden);
     row.hidden = false;
-    const big = document.querySelector('[data-secrets]'); big.hidden = false; countUp(big.querySelector('b'), st.secretsHidden || 0);
+    if (Number(st.secretsHidden) >= 1) { const big = document.querySelector('[data-secrets]'); big.hidden = false; countUp(big.querySelector('b'), st.secretsHidden); }
   }
+  if (!st || !Number(st.streamsTotal)) document.querySelectorAll('[data-first]').forEach((el) => { el.hidden = false; });
   tipsCard(st);
 })();
 

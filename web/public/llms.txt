@@ -13,7 +13,9 @@ Ticker: $MARQ (PEEKMARQUEE). Launch: Fri 6 Nov 2026 15:00 UTC. Official CA is on
 - Replays stay 24 hours, then they're deleted. Delete earlier with `npx peekmarquee delete <id>`.
 - Unlisted streams: `--private` keeps the link out of the directory and the stats.
 - Tips go straight to the streamer's wallet through a tiny contract that holds nothing.
-- Not audited. The contract is 1 function and holds no ETH; read it on Blockscout.
+- Tip in ETH or USDG now; $MARQ after launch. ETH is one transaction (tip); a token tip is approve (exact amount) + tipToken.
+- Not audited. The contract has two functions, tip (ETH) and tipToken (tokens), and holds no ETH and no tokens. Source verified on Sourcify (exact match).
+- Live chat for viewers. Chat never reaches the streamer's machine. Addresses and links in chat are removed.
 - Works with Claude Code.
 - The CLI's source is readable in the npm tarball (no minification).
 - PEEKMARQUEE is free. Nothing here needs the token.
@@ -38,7 +40,11 @@ Ticker: $MARQ (PEEKMARQUEE). Launch: Fri 6 Nov 2026 15:00 UTC. Official CA is on
 - POST /api/s/<id>/report {"reason":"illegal|secret_leaked|spam|other"}
 
 ## Contract
-TipJar on Robinhood Chain (4663): see https://peekmarquee.live/proof and https://peekmarquee.live/deployments.json
+TipJarV2 on Robinhood Chain (chain id 4663): 0x00e1bef6f06ebee0a2ff5741dab8d74d97c10b92
+- Sourcify: https://sourcify.dev/server/v2/contract/4663/0x00e1bef6f06ebee0a2ff5741dab8d74d97c10b92
+- Explorer: https://robinhoodchain.blockscout.com/address/0x00e1bef6f06ebee0a2ff5741dab8d74d97c10b92
+- v1 TipJar 0x8d6ca67d3d1335037e876183f61fdd02f7a1bdc4 is retired (ETH-only, holds nothing).
+- Machine-readable: https://peekmarquee.live/deployments.json · proof page: https://peekmarquee.live/proof
 
 ## Links
 - Docs: https://peekmarquee.live/docs
