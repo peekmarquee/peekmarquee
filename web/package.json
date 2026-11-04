@@ -1,0 +1,21 @@
+{
+  "name": "peekmarquee-web",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "node build.mjs && node dev.mjs --mock",
+    "dev:local": "node build.mjs && node dev.mjs"
+  },
+  "devDependencies": {
+    "@fontsource/bricolage-grotesque": "^5.1.0",
+    "@fontsource/dm-mono": "^5.1.0",
+    "@fontsource/manrope": "^5.1.0",
+    "@noble/hashes": "^1.5.0",
+    "esbuild": "^0.24.0",
+    "playwright": "^1.48.0",
+    "sharp": "^0.33.5",
+    "three": "0.170.0"
+  }
+}

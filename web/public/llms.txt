@@ -1,0 +1,48 @@
+# PEEKMARQUEE
+
+> Your coding agent, live. Anyone can watch it build.
+
+One command. `npx peekmarquee` in the folder where Claude Code is running prints a public link in seconds.
+See exactly what would be sent: `npx peekmarquee --dry-run`.
+
+Ticker: $MARQ (PEEKMARQUEE). Launch: Fri 6 Nov 2026 15:00 UTC. Official CA is only posted on peekmarquee.live and @peekmarquee. Anything else is not us.
+
+## Facts
+- Secrets are hidden on your machine, before anything leaves it. The relay runs the same filter again.
+- Read-only. Viewers can't type into your session; there is no channel from the page back to your terminal.
+- Replays stay 24 hours, then they're deleted. Delete earlier with `npx peekmarquee delete <id>`.
+- Unlisted streams: `--private` keeps the link out of the directory and the stats.
+- Tips go straight to the streamer's wallet through a tiny contract that holds nothing.
+- Not audited. The contract is 1 function and holds no ETH; read it on Blockscout.
+- Works with Claude Code.
+- The CLI's source is readable in the npm tarball (no minification).
+- PEEKMARQUEE is free. Nothing here needs the token.
+- No promise of returns. Creator fee goes to the team wallet and pays for the relay and domain.
+
+## What it can't catch
+- Secrets without a known prefix and with low entropy are not caught unless a keyword is on the same line.
+- Secrets split across lines, spelled out character by character, or inside an image are not caught.
+- Private content that is not a secret (names, emails, printed database rows) is not hidden unless you use `--hide`.
+- Redaction uses regular expressions, not an understanding of context. Transaction hashes and addresses stay visible.
+- Don't stream a session that holds production credentials.
+
+## API (JSON, GET allows any origin)
+- GET /api — route index
+- GET /api/live — public live streams
+- GET /api/recent — last 20 public replays
+- GET /api/stats — totals from real streams
+- GET /api/s/<id> — stream meta
+- GET /api/s/<id>/events?from=<seq> — server-sent events (live + replay)
+- GET /api/s/<id>/replay.jsonl — replay download
+- GET /api/tips?stream=<id>, GET /api/tips/top — tips read from Robinhood Chain (chain id 4663)
+- POST /api/s/<id>/report {"reason":"illegal|secret_leaked|spam|other"}
+
+## Contract
+TipJar on Robinhood Chain (4663): see https://peekmarquee.live/proof and https://peekmarquee.live/deployments.json
+
+## Links
+- Docs: https://peekmarquee.live/docs
+- Live: https://peekmarquee.live/live
+- Token: https://peekmarquee.live/token
+- X: https://x.com/peekmarquee
+- npm: https://www.npmjs.com/package/peekmarquee

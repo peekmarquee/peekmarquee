@@ -1,0 +1,90 @@
+{
+  "contract": "TipJarV2",
+  "source": "contracts/src/TipJarV2.sol",
+  "compiler": {
+    "solc": "0.8.24",
+    "evmVersion": "paris",
+    "optimizer": true,
+    "runs": 200
+  },
+  "minTipWei": "10000000000000",
+  "tippedTopic0": "0xf16c198d9bc7f2358560566aabe9b43412ab77e09fb1db215be50ebb4843e1ee",
+  "streamIdEncoding": "keccak256(bytes(id))",
+  "defaultChainId": 4663,
+  "chains": {
+    "4663": {
+      "name": "Robinhood Chain",
+      "network": "mainnet",
+      "chainIdHex": "0x1237",
+      "rpcUrl": "https://robinhood-rpc.publicnode.com",
+      "explorer": "https://robinhoodchain.blockscout.com",
+      "nativeCurrency": {
+        "name": "Ether",
+        "symbol": "ETH",
+        "decimals": 18
+      },
+      "address": "0x00e1bef6f06ebee0a2ff5741dab8d74d97c10b92",
+      "deployBlock": 106218121,
+      "deployTx": "0xbeab2edd481901b1e6898f14e24d555e6287afd944590dbff29891191b1c9032",
+      "deployer": "0x806a315f23C241692e16fcC563Ff67b4E11BEf73",
+      "verified": {
+        "sourcify": true,
+        "blockscout": false
+      },
+      "retired": [
+        {
+          "contract": "TipJar",
+          "address": "0x8d6ca67d3d1335037e876183f61fdd02f7a1bdc4",
+          "deployBlock": 106198238,
+          "deployTx": "0x307e7acf0384707a46a97681a3e8736eb997f62cb43636033c0cd2b315d6e06b",
+          "note": "v1 retired 05-11-2026 (ETH-only); holds nothing"
+        }
+      ]
+    },
+    "46630": {
+      "name": "Robinhood Chain Testnet",
+      "network": "testnet",
+      "chainIdHex": "0xb626",
+      "rpcUrl": "https://robinhood-sepolia-rpc.publicnode.com",
+      "explorer": "https://explorer.testnet.chain.robinhood.com",
+      "nativeCurrency": {
+        "name": "Ether",
+        "symbol": "ETH",
+        "decimals": 18
+      },
+      "address": "0x38e5904079ed6e157dba54047c2ab98544aea395",
+      "deployBlock": 148600720,
+      "deployTx": "0xdc42d965e620a7e0c87da4feff94b918b9e1e715e3bd3655cb64bb35fd1fbc28",
+      "deployer": "0x806a315f23C241692e16fcC563Ff67b4E11BEf73",
+      "verified": {
+        "sourcify": true,
+        "blockscout": false
+      },
+      "retired": [
+        {
+          "contract": "TipJar",
+          "address": "0x8d6ca67d3d1335037e876183f61fdd02f7a1bdc4",
+          "deployBlock": 148586790,
+          "deployTx": "0x073de2c163bd458923f5b87be597bc9608cb2a0c4cc57bb65e6ff1b39f31dcd3",
+          "note": "v1 retired 05-11-2026 (ETH-only); holds nothing"
+        }
+      ]
+    }
+  },
+  "teamWallets": [
+    "0x806a315f23C241692e16fcC563Ff67b4E11BEf73"
+  ],
+  "notes": "Totals shown per stream are filtered to tips whose streamer == the stream wallet (review S1). On-chain receivedFor is gross.",
+  "tippedTokenTopic0": "0xf44c239c3c80b9f21e38838ae339d6851f5d4aa89e1fddbe4619621c302c4e4d",
+  "tokens": {
+    "USDG": {
+      "address": "0x5fc5360D0400a0Fd4f2af552ADD042D716F1d168",
+      "decimals": 6
+    },
+    "MARQ": {
+      "address": null,
+      "decimals": 18,
+      "note": "filled from token.json at T0"
+    }
+  }
+}

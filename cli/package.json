@@ -1,0 +1,45 @@
+{
+  "name": "peekmarquee",
+  "version": "0.1.0",
+  "description": "Stream your Claude Code session to a public link with one command. Secrets are hidden on your machine before anything leaves it; viewers can only watch.",
+  "type": "module",
+  "bin": {
+    "peekmarquee": "bin/peekmarquee.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "sync-shared": "node scripts/sync-shared.mjs",
+    "prepack": "node scripts/sync-shared.mjs",
+    "test": "node scripts/sync-shared.mjs && node --test test/*.test.js"
+  },
+  "dependencies": {
+    "picocolors": "^1.1.1",
+    "qrcode-terminal": "^0.12.0",
+    "ws": "^8.18.0"
+  },
+  "keywords": [
+    "claude-code",
+    "stream",
+    "live",
+    "agent",
+    "peekmarquee"
+  ],
+  "license": "MIT",
+  "homepage": "https://peekmarquee.live",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/peekmarquee/peekmarquee.git",
+    "directory": "cli"
+  },
+  "bugs": {
+    "url": "https://github.com/peekmarquee/peekmarquee/issues"
+  }
+}
